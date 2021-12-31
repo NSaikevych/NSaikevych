@@ -1,0 +1,30 @@
+services:
+  php:
+    build: docker
+    container_name: learning-php
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    depends_on:
+      - mongo
+  nginx:
+    image: nginx:alpine
+    container_name: learning-nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - php
+  mongo:
+    image: mongo
+    container_name: learning-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+    ports:
+      - ${MONGODB_PORT}:27017

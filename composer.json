@@ -1,0 +1,14 @@
+{
+    "name": "nsaik/learning",
+    "description": "Learning",
+    "type": "project",
+    "require": {
+        "mongodb/mongodb": "^1.11",
+        "symfony/dotenv": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nsaik\\Learning\\": "src/"
+        }
+    }
+}
